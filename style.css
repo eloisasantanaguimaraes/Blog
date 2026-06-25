@@ -1,0 +1,383 @@
+:root{
+    --rosa1:#ffd6ea;
+    --rosa2:#ffb6d9;
+    --rosa3:#ff85be;
+    --rosa4:#ff69b4;
+    --texto:#5a4862;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Fredoka',sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+    color:var(--texto);
+    overflow-x:hidden;
+
+    background:linear-gradient(
+    45deg,
+    #ffd6ea,
+    #ffb6d9,
+    #8fd9ff,
+    #d6b3ff,
+    #fff0a8);
+
+    background-size:500% 500%;
+
+    animation:fundoAnimado 15s ease infinite;
+}
+
+@keyframes fundoAnimado{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+body::before{
+
+    content:"● ● ● ● ● ● ● ● ● ● ● ●";
+
+    position:fixed;
+    width:100%;
+    text-align:center;
+
+    top:10%;
+
+    font-size:60px;
+
+    color:rgba(255,255,255,.25);
+
+    pointer-events:none;
+
+    animation:flutuar 8s infinite alternate;
+}
+
+@keyframes flutuar{
+
+    from{
+        transform:translateY(0px);
+    }
+
+    to{
+        transform:translateY(30px);
+    }
+
+}
+
+.decor{
+
+    position:fixed;
+
+    width:120px;
+
+    z-index:999;
+
+    pointer-events:none;
+}
+
+.canto1{
+    top:10px;
+    left:10px;
+}
+
+.canto2{
+    top:10px;
+    right:10px;
+}
+
+.canto3{
+    bottom:10px;
+    left:10px;
+}
+
+.canto4{
+    bottom:10px;
+    right:10px;
+}
+
+.estrela-girando{
+
+    position:fixed;
+
+    right:50px;
+    top:200px;
+
+    width:90px;
+
+    animation:girar 10s linear infinite;
+}
+
+@keyframes girar{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.container{
+
+    width:90%;
+    max-width:950px;
+
+    margin:40px auto;
+
+    background:white;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 0 20px #fff,
+    0 0 40px #ffd6ea,
+    0 0 60px #ffb6d9;
+}
+
+.header{
+
+    background:linear-gradient(
+    135deg,
+    #ffb6d9,
+    #ffd4ee);
+
+    padding:30px;
+
+    position:relative;
+}
+
+.profile{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.profile img{
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    border:5px solid white;
+}
+
+.profile h2{
+    color:white;
+    font-size:2rem;
+}
+
+.profile p{
+    color:white;
+}
+
+.kawaii-stars{
+
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    font-size:35px;
+
+    color:white;
+}
+
+.top-buttons{
+
+    display:flex;
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+.top-buttons button{
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    background:white;
+
+    color:#ff69b4;
+
+    font-weight:bold;
+}
+
+.post{
+
+    margin:25px;
+
+    padding:25px;
+
+    background:#fff7fb;
+
+    border-radius:25px;
+
+    border:3px solid #ffd1e8;
+}
+
+.post h1{
+
+    color:#ff69b4;
+
+    margin-bottom:15px;
+}
+
+.post img{
+
+    width:100%;
+
+    border-radius:20px;
+
+    margin-top:15px;
+}
+
+.post p{
+
+    line-height:1.8;
+
+    margin-top:15px;
+}
+
+.interactions{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+.interactions button{
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    background:#ffe1f1;
+
+    color:#ff4fa5;
+
+    font-weight:bold;
+}
+
+.active{
+
+    background:#ff69b4 !important;
+
+    color:white !important;
+}
+
+.comments{
+    margin-top:20px;
+}
+
+textarea{
+
+    width:100%;
+
+    border-radius:15px;
+
+    border:2px solid #ffc8e4;
+
+    padding:10px;
+
+    resize:none;
+}
+
+.comment-btn{
+
+    margin-top:10px;
+
+    border:none;
+
+    background:#8fd9ff;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+}
+
+.comment{
+
+    background:white;
+
+    padding:10px;
+
+    border-radius:15px;
+
+    margin-top:10px;
+}
+
+footer{
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#ff69b4;
+
+    font-weight:bold;
+}
+
+.dark{
+
+    background:#1f1b2c;
+}
+
+.dark .container{
+    background:#312940;
+}
+
+.dark .post{
+    background:#453757;
+    color:white;
+}
+
+.dark .header{
+    background:linear-gradient(
+    135deg,
+    #ff69b4,
+    #b36fff);
+}
+
+.grande{
+    font-size:120%;
+}
