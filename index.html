@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Kawaii</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- PNGs Decorativos -->
+
+<img class="decor canto1" src="https://i.imgur.com/9h0j7wV.png" alt="">
+<img class="decor canto2" src="https://i.imgur.com/xL6h4wK.png" alt="">
+<img class="decor canto3" src="https://i.imgur.com/TY0s9f6.png" alt="">
+<img class="decor canto4" src="https://i.imgur.com/WY5L7kR.png" alt="">
+
+<img class="estrela-girando"
+src="https://i.imgur.com/4M7IWwP.png"
+alt="">
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="profile">
+
+            <img
+            src="https://i.imgur.com/3ZQ3Z6M.png"
+            alt="Perfil">
+
+            <div>
+                <h2>🌸 Meu Blog Kawaii</h2>
+                <p>@usuariofofinho</p>
+            </div>
+
+        </div>
+
+        <div class="kawaii-stars">
+            ⭐ 🎀 ⭐
+        </div>
+
+        <div class="top-buttons">
+
+            <button onclick="alternarFonte()">
+                👓 Acessibilidade
+            </button>
+
+            <button onclick="modoEscuro()">
+                🌙 Modo Escuro
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="post">
+
+        <h1>🍓 Meu Primeiro Post</h1>
+
+        <p>
+            Bem-vindo ao meu blog kawaii cheio de fofura,
+            brilho e muitas cores pastel!
+        </p>
+
+        <img
+        src="https://images.unsplash.com/photo-1518621012420-8f3c0d6d4b4d?w=1200"
+        alt="Imagem">
+
+        <img
+        src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=1200"
+        alt="Gatinho">
+
+        <img
+        src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1200"
+        alt="Flores">
+
+        <img
+        src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=1200"
+        alt="Kawaii">
+
+        <p>
+            Você pode curtir, comentar e republicar
+            este conteúdo usando os botões abaixo.
+        </p>
+
+        <div class="interactions">
+
+            <button onclick="toggle(this)">
+                ❤️ Curtir
+            </button>
+
+            <button onclick="toggle(this)">
+                💬 Comentar
+            </button>
+
+            <button onclick="toggle(this)">
+                🔄 Republicar
+            </button>
+
+        </div>
+
+        <div class="comments">
+
+            <textarea
+            id="comentario"
+            rows="4"
+            placeholder="Escreva um comentário fofo...">
+            </textarea>
+
+            <button
+            class="comment-btn"
+            onclick="adicionarComentario()">
+            Publicar Comentário
+            </button>
+
+            <div
+            class="comment-list"
+            id="listaComentarios">
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        🎀 Feito com carinho • Blog Kawaii 🎀
+    </footer>
+
+</div>
+
+<script>
+
+function modoEscuro(){
+    document.body.classList.toggle("dark");
+}
+
+function alternarFonte(){
+    document.body.classList.toggle("grande");
+}
+
+function toggle(botao){
+    botao.classList.toggle("active");
+}
+
+function adicionarComentario(){
+
+    let texto =
+    document.getElementById("comentario").value;
+
+    if(texto.trim() === "") return;
+
+    let comentario =
+    document.createElement("div");
+
+    comentario.className = "comment";
+
+    comentario.innerHTML =
+    "💖 " + texto;
+
+    document
+    .getElementById("listaComentarios")
+    .appendChild(comentario);
+
+    document
+    .getElementById("comentario")
+    .value = "";
+}
+
+</script>
+
+</body>
+</html>
