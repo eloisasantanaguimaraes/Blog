@@ -1,383 +1,290 @@
-:root{
-    --rosa1:#ffd6ea;
-    --rosa2:#ffb6d9;
-    --rosa3:#ff85be;
-    --rosa4:#ff69b4;
-    --texto:#5a4862;
+/* ==========================================
+   CONFIGURAÇÕES DE VARIÁVEIS (TEMAS)
+   ========================================== */
+:root {
+    --bg-principal: #000000;
+    --cor-neon: #a855f7;       /* Roxo Neon Padrão */
+    --cor-neon-rgb: 168, 85, 247;
+    --cor-hover: #eab308;      /* Amarelo de Destaque */
+    --cor-texto: #f3e8ff;
+    --tamanho-fonte: 120%;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Fredoka',sans-serif;
+/* Modo Amarelo / Terminal Retro (Ativado via JS) */
+[data-theme="yellow"] {
+    --cor-neon: #eab308;       /* Amarelo Terminal */
+    --cor-neon-rgb: 234, 179, 8;
+    --cor-hover: #a855f7;      /* Roxo vira o destaque */
+    --cor-texto: #fef9c3;
 }
 
-body{
-
-    min-height:100vh;
-    color:var(--texto);
-    overflow-x:hidden;
-
-    background:linear-gradient(
-    45deg,
-    #ffd6ea,
-    #ffb6d9,
-    #8fd9ff,
-    #d6b3ff,
-    #fff0a8);
-
-    background-size:500% 500%;
-
-    animation:fundoAnimado 15s ease infinite;
+/* ==========================================
+   ESTRUTURA GLOBAL E EFEITOS CRT
+   ========================================== */
+body {
+    background-color: var(--bg-principal);
+    /* Permite fundo em PNG transparente com padrão sutil de carbono/pixels */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                      url('https://www.transparenttextures.com/patterns/carbon-fibre-v2.png');
+    color: var(--cor-texto);
+    font-family: 'VT323', monospace; /* Fonte estilo Pixel */
+    font-size: var(--tamanho-fonte);
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+    letter-spacing: 1px;
+    transition: font-size 0.2s ease;
 }
 
-@keyframes fundoAnimado{
-
-    0%{
-        background-position:0% 50%;
-    }
-
-    50%{
-        background-position:100% 50%;
-    }
-
-    100%{
-        background-position:0% 50%;
-    }
-
+/* Camada de Scanlines (Linhas de monitor antigo / Vibe ARG) */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    z-index: 9999;
+    opacity: 0.4;
+    pointer-events: none;
+    background-size: 100% 4px, 6px 100%;
 }
 
-body::before{
-
-    content:"● ● ● ● ● ● ● ● ● ● ● ●";
-
-    position:fixed;
-    width:100%;
-    text-align:center;
-
-    top:10%;
-
-    font-size:60px;
-
-    color:rgba(255,255,255,.25);
-
-    pointer-events:none;
-
-    animation:flutuar 8s infinite alternate;
+/* ==========================================
+   ELEMENTOS DE DECORAÇÃO (CANTOS)
+   ========================================== */
+.decoracao-canto {
+    position: fixed;
+    z-index: 10;
+    width: 90px;
+    height: 90px;
+    border: 2px dashed var(--cor-neon);
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--cor-neon);
+    image-rendering: pixelated;
 }
 
-@keyframes flutuar{
+.canto-superior-esquerdo { top: 15px; left: 15px; }
+.canto-inferior-direito { bottom: 15px; right: 15px; }
 
-    from{
-        transform:translateY(0px);
-    }
-
-    to{
-        transform:translateY(30px);
-    }
-
+/* ==========================================
+   PAINEL DE CONTROLE FIXO
+   ========================================== */
+.painel-ajustes {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid var(--cor-neon);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+    box-shadow: 4px 4px 0px var(--cor-neon);
 }
 
-.decor{
-
-    position:fixed;
-
-    width:120px;
-
-    z-index:999;
-
-    pointer-events:none;
+/* ==========================================
+   BOTÕES INTERATIVOS (BOTÕES PIXELADOS)
+   ========================================== */
+button, .btn-link {
+    background: transparent;
+    border: 2px solid var(--cor-neon);
+    color: var(--cor-neon);
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    font-weight: bold; /* Principalmente os botões em negrito */
+    padding: 6px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s ease-in-out;
 }
 
-.canto1{
-    top:10px;
-    left:10px;
+/* Efeito Hover Obrigatório: Quando passa o mouse, fica amarelo */
+button:hover, .btn-link:hover {
+    color: var(--cor-hover) !important;
+    border-color: var(--cor-hover) !important;
+    background: rgba(var(--cor-neon-rgb), 0.15);
+    text-shadow: 0 0 8px var(--cor-hover);
+    box-shadow: 0 0 4px rgba(var(--cor-neon-rgb), 0.5);
 }
 
-.canto2{
-    top:10px;
-    right:10px;
+/* ==========================================
+   INTERFACE DA JANELA DO BLOG (INTERFACES ANTIGAS)
+   ========================================== */
+.container-blog {
+    max-width: 780px;
+    margin: 70px auto;
+    border: 3px solid var(--cor-neon);
+    background: rgba(3, 3, 3, 0.98);
+    box-shadow: 8px 8px 0px rgba(var(--cor-neon-rgb), 0.25);
 }
 
-.canto3{
-    bottom:10px;
-    left:10px;
+.barra-titulo {
+    background: var(--cor-neon);
+    color: #000000;
+    padding: 6px 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    text-transform: uppercase;
 }
 
-.canto4{
-    bottom:10px;
-    right:10px;
+.conteudo-janela {
+    padding: 25px;
 }
 
-.estrela-girando{
-
-    position:fixed;
-
-    right:50px;
-    top:200px;
-
-    width:90px;
-
-    animation:girar 10s linear infinite;
+/* ==========================================
+   LAYOUT PERFIL TWITTER / CARRD / STRAWPAGE
+   ========================================== */
+.perfil-twitter {
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px dashed rgba(var(--cor-neon-rgb), 0.5);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-@keyframes girar{
-
-    from{
-        transform:rotate(0deg);
-    }
-
-    to{
-        transform:rotate(360deg);
-    }
-
+.foto-perfil {
+    width: 90px;
+    height: 90px;
+    border: 2px solid var(--cor-neon);
+    background: #111;
+    image-rendering: pixelated;
 }
 
-.container{
-
-    width:90%;
-    max-width:950px;
-
-    margin:40px auto;
-
-    background:white;
-
-    border-radius:30px;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 0 20px #fff,
-    0 0 40px #ffd6ea,
-    0 0 60px #ffb6d9;
+.info-usuario h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--cor-neon);
+    text-shadow: 0 0 4px rgba(var(--cor-neon-rgb), 0.4);
 }
 
-.header{
-
-    background:linear-gradient(
-    135deg,
-    #ffb6d9,
-    #ffd4ee);
-
-    padding:30px;
-
-    position:relative;
+.info-usuario .arroba {
+    color: var(--cor-hover);
+    margin: -2px 0 12px 0;
+    font-size: 1.2rem;
 }
 
-.profile{
-
-    display:flex;
-    align-items:center;
-    gap:15px;
+.bio {
+    font-size: 1.15rem;
+    line-height: 1.3;
 }
 
-.profile img{
-
-    width:90px;
-    height:90px;
-
-    border-radius:50%;
-
-    border:5px solid white;
+.bio b {
+    color: var(--cor-neon);
 }
 
-.profile h2{
-    color:white;
-    font-size:2rem;
+/* ==========================================
+   CONTEÚDO DO POST DO BLOG
+   ========================================== */
+.post-blog h1 {
+    font-size: 2.4rem;
+    margin-top: 0;
+    color: var(--cor-texto);
+    text-shadow: 0 0 6px var(--cor-neon);
 }
 
-.profile p{
-    color:white;
+.post-blog b {
+    color: var(--cor-hover);
 }
 
-.kawaii-stars{
-
-    position:absolute;
-
-    top:20px;
-    right:20px;
-
-    font-size:35px;
-
-    color:white;
+.imagem-post {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border: 2px solid var(--cor-neon);
+    margin: 18px 0;
+    image-rendering: pixelated; /* Mantém a estética pixel ao redimensionar */
 }
 
-.top-buttons{
-
-    display:flex;
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-top:20px;
+/* ==========================================
+   AÇÕES & INTERAÇÕES
+   ========================================== */
+.botoes-interacao {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    border-top: 1px solid rgba(var(--cor-neon-rgb), 0.3);
+    border-bottom: 1px solid rgba(var(--cor-neon-rgb), 0.3);
+    padding: 12px 0;
 }
 
-.top-buttons button{
-
-    border:none;
-
-    padding:10px 18px;
-
-    border-radius:20px;
-
-    cursor:pointer;
-
-    background:white;
-
-    color:#ff69b4;
-
-    font-weight:bold;
+/* ==========================================
+   SISTEMA DE COMENTÁRIOS
+   ========================================== */
+.secao-comentarios {
+    background: rgba(var(--cor-neon-rgb), 0.03);
+    padding: 20px;
+    border: 1px solid rgba(var(--cor-neon-rgb), 0.6);
 }
 
-.post{
-
-    margin:25px;
-
-    padding:25px;
-
-    background:#fff7fb;
-
-    border-radius:25px;
-
-    border:3px solid #ffd1e8;
+.secao-comentarios h3 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--cor-neon);
 }
 
-.post h1{
-
-    color:#ff69b4;
-
-    margin-bottom:15px;
+.lista-comentarios {
+    margin-bottom: 20px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
-.post img{
-
-    width:100%;
-
-    border-radius:20px;
-
-    margin-top:15px;
+/* Customização da barra de rolagem retrô */
+.lista-comentarios::-webkit-scrollbar {
+    width: 8px;
+}
+.lista-comentarios::-webkit-scrollbar-track {
+    background: #000;
+}
+.lista-comentarios::-webkit-scrollbar-thumb {
+    background: var(--cor-neon);
+    border: 1px solid #000;
 }
 
-.post p{
-
-    line-height:1.8;
-
-    margin-top:15px;
+.comentario {
+    border-left: 3px solid var(--cor-hover);
+    padding-left: 12px;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
-.interactions{
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-top:20px;
+.comentario strong {
+    color: var(--cor-neon);
 }
 
-.interactions button{
-
-    border:none;
-
-    padding:12px 18px;
-
-    border-radius:20px;
-
-    cursor:pointer;
-
-    background:#ffe1f1;
-
-    color:#ff4fa5;
-
-    font-weight:bold;
+/* Form de Inputs */
+.form-comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.active{
-
-    background:#ff69b4 !important;
-
-    color:white !important;
+.form-comentario input, 
+.form-comentario textarea {
+    background: #000000;
+    border: 1px solid var(--cor-neon);
+    color: var(--cor-texto);
+    font-family: 'VT323', monospace;
+    padding: 8px;
+    font-size: 1.2rem;
+    transition: border-color 0.2s;
 }
 
-.comments{
-    margin-top:20px;
-}
-
-textarea{
-
-    width:100%;
-
-    border-radius:15px;
-
-    border:2px solid #ffc8e4;
-
-    padding:10px;
-
-    resize:none;
-}
-
-.comment-btn{
-
-    margin-top:10px;
-
-    border:none;
-
-    background:#8fd9ff;
-
-    color:white;
-
-    padding:10px 15px;
-
-    border-radius:15px;
-
-    cursor:pointer;
-}
-
-.comment{
-
-    background:white;
-
-    padding:10px;
-
-    border-radius:15px;
-
-    margin-top:10px;
-}
-
-footer{
-
-    text-align:center;
-
-    padding:20px;
-
-    color:#ff69b4;
-
-    font-weight:bold;
-}
-
-.dark{
-
-    background:#1f1b2c;
-}
-
-.dark .container{
-    background:#312940;
-}
-
-.dark .post{
-    background:#453757;
-    color:white;
-}
-
-.dark .header{
-    background:linear-gradient(
-    135deg,
-    #ff69b4,
-    #b36fff);
-}
-
-.grande{
-    font-size:120%;
+.form-comentario input:focus, 
+.form-comentario textarea:focus {
+    outline: none;
+    border-color: var(--cor-hover);
+    box-shadow: 0 0 5px rgba(var(--cor-neon-rgb), 0.5);
 }
