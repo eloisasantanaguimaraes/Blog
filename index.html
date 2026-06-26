@@ -1,177 +1,398 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Kawaii</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>doorman's blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variáveis de Cor - Modo Roxo Padrão */
+        :root {
+            --bg-principal: #000000;
+            --cor-neon: #a855f7; /* Roxo */
+            --cor-neon-rgb: 168, 85, 247;
+            --cor-hover: #eab308; /* Amarelo */
+            --cor-texto: #f3e8ff;
+            --tamanho-fonte: 130%; /* Ligeiramente maior para compensar a leitura da fonte pixel */
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+        /* Modo Amarelo (Alternado via botão) */
+        [data-theme="yellow"] {
+            --cor-neon: #eab308; /* Amarelo */
+            --cor-neon-rgb: 234, 179, 8;
+            --cor-hover: #a855f7; /* Roxo */
+            --cor-texto: #fef9c3;
+        }
 
-<link rel="stylesheet" href="style.css">
+        /* Configurações Gerais do Fundo */
+        body {
+            background-color: var(--bg-principal);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://i.pinimg.com/736x/72/2c/38/722c38da6cf6b357199ef03203a98acb.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--cor-texto);
+            font-family: 'VT323', monospace; /* Fonte pixel principal para leitura */
+            font-size: var(--tamanho-fonte);
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            letter-spacing: 1px;
+        }
+
+        /* Efeito de linhas de scan do monitor CRT antigo */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            opacity: 0.6;
+            pointer-events: none;
+            background-size: 100% 4px, 6px 100%;
+        }
+
+        /* --- DECORAÇÕES FLUTUANTES (Imagens nos cantos) --- */
+        .decoracao-canto {
+            position: fixed;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            border: 2px dashed var(--cor-neon);
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .canto-superior-esquerdo { top: 10px; left: 10px; }
+        .canto-inferior-direito { bottom: 10px; right: 10px; }
+
+        /* --- PAINEL DE CONTROLE --- */
+        .painel-ajustes {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--cor-neon);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+            box-shadow: 4px 4px 0px var(--cor-neon);
+        }
+
+        /* Botões Gerais Estilo Terminal (Fonte Pixel Quadrada) */
+        button, .btn-link {
+            background: transparent;
+            border: 2px solid var(--cor-neon);
+            color: var(--cor-neon);
+            font-family: 'Press Start 2P', monospace; /* Fonte pixel estilo arcade */
+            font-size: 0.65rem; /* Ajustado por ser uma fonte naturalmente larga */
+            font-weight: bold;
+            padding: 8px 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            line-height: 1.2;
+        }
+        
+        button:hover, .btn-link:hover {
+            color: var(--cor-hover);
+            border-color: var(--cor-hover);
+            background: rgba(var(--cor-neon-rgb), 0.1);
+            text-shadow: 0 0 8px var(--cor-hover);
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container-blog {
+            max-width: 800px;
+            margin: 60px auto;
+            border: 3px solid var(--cor-neon);
+            background: rgba(5, 5, 5, 0.95);
+            box-shadow: 8px 8px 0px rgba(var(--cor-neon-rgb), 0.3);
+        }
+
+        .barra-titulo {
+            background: var(--cor-neon);
+            color: #000;
+            padding: 8px 12px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .conteudo-janela {
+            padding: 20px;
+        }
+
+        /* --- CARD ESTILO PERFIL DO TWITTER --- */
+        .perfil-twitter {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px dashed var(--cor-neon);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-container {
+            position: relative;
+        }
+
+        .foto-perfil {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--cor-neon);
+            image-rendering: pixelated;
+            object-fit: cover;
+        }
+
+        .info-usuario h2 {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.1rem;
+            color: var(--cor-neon);
+        }
+
+        .info-usuario .arroba {
+            font-family: 'VT323', monospace;
+            color: var(--cor-hover);
+            margin: 5px 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .bio {
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        /* --- ÁREA DO POST --- */
+        .post-blog h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.4rem;
+            margin-top: 10px;
+            line-height: 1.4;
+            text-shadow: 0 0 5px var(--cor-neon);
+        }
+
+        .imagem-post {
+            width: 100%;
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border: 2px solid var(--cor-neon);
+            margin: 15px 0;
+            image-rendering: pixelated;
+        }
+
+        /* --- ÁREA DE INTERAÇÃO --- */
+        .botoes-interacao {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            border-top: 1px solid rgba(var(--cor-neon-rgb), 0.4);
+            border-bottom: 1px solid rgba(var(--cor-neon-rgb), 0.4);
+            padding: 10px 0;
+        }
+
+        /* --- SEÇÃO DE COMENTÁRIOS --- */
+        .secao-comentarios {
+            background: rgba(var(--cor-neon-rgb), 0.05);
+            padding: 15px;
+            border: 1px solid var(--cor-neon);
+        }
+
+        .secao-comentarios h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            margin-top: 0;
+        }
+
+        .lista-comentarios {
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .comentario {
+            border-left: 3px solid var(--cor-hover);
+            padding-left: 10px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .comentario strong {
+            color: var(--cor-neon);
+        }
+
+        .form-comentario {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-comentario input, .form-comentario textarea {
+            background: #000;
+            border: 1px solid var(--cor-neon);
+            color: var(--cor-texto);
+            font-family: 'VT323', monospace;
+            padding: 8px;
+            font-size: 1.2rem;
+        }
+
+        .form-comentario input:focus, .form-comentario textarea:focus {
+            outline: none;
+            border-color: var(--cor-hover);
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- PNGs Decorativos -->
+    <div class="decoracao-canto canto-superior-esquerdo">
+        <img class="foto-perfil" src="https://i.pinimg.com/736x/56/3c/25/563c2563cba5884a3fa46cf8d4d6a202.jpg" alt="Decoracao 1">
+    </div>
+    <div class="decoracao-canto canto-inferior-direito">
+        <img class="foto-perfil" src="https://i.pinimg.com/736x/72/a8/2f/72a82fd681d2e857ea59e0c83d40632b.jpg" alt="Decoracao 2">
+    </div>
 
-<img class="decor canto1" src="https://i.imgur.com/9h0j7wV.png" alt="">
-<img class="decor canto2" src="https://i.imgur.com/xL6h4wK.png" alt="">
-<img class="decor canto3" src="https://i.imgur.com/TY0s9f6.png" alt="">
-<img class="decor canto4" src="https://i.imgur.com/WY5L7kR.png" alt="">
+    <div class="painel-ajustes">
+        <button id="btn-mudar-cor" title="Trocar Esquema de Cores">⚡ ALTERNAR COR</button>
+        <div style="display: flex; gap: 5px;">
+            <button onclick="mudarZoom(100)">100%</button>
+            <button onclick="mudarZoom(125)">125%</button>
+            <button onclick="mudarZoom(150)">150%</button>
+        </div>
+    </div>
 
-<img class="estrela-girando"
-src="https://i.imgur.com/4M7IWwP.png"
-alt="">
+    <div class="container-blog">
+        <div class="barra-titulo">
+            <span>SISTEMA_OPERACIONAL_V.1.0.exe</span>
+            <span>[X]</span>
+        </div>
+        
+        <div class="conteudo-janela">
+            
+            <div class="perfil-twitter">
+                <div class="avatar-container">
+                    <img class="foto-perfil" src="https://placehold.co/80x80/000000/a855f7?text=USER" alt="Avatar">
+                </div>
+                <div class="info-usuario">
+                    <h2>Uzi Doorman ᶻ 𝗓 𐰁 🗲</h2>
+                    <div class="arroba">@Uzi_Doorman</div>
+                    <p class="bio">
+                        <b>she / Robot</b> • ??y • infp • Libra <br>
+                        BITE ME!!! ⋆.ೃ࿔*:･
+                    </p>
+                    <button class="btn-link" onclick="alert('Redirecionando para o perfil...')">ENTRAR NO PERFIL</button>
+                </div>
+            </div>
 
-<div class="container">
+            <article class="post-blog">
+                <h1>Sobre o 9-copper!!</h1>
+                <p>Meu primeiro blog: <b>(decidi testar esse "sistema" novo pra interagir com os humanos :p) </b>. Eai, robôs de outros planetas (eu diria). Nesses dias atrás lançou esse misterioso site que simplesmente NINGUÉM sabe quem fez ou criou. Mas pelo que eu entendi, é um site de robôs de muitos planetas se comunicarem (estranho uhh :/). Enfim, já que esse site foi criado para MUITOS robôs de vários lugares é bom falar sobre o meu né?? XDDDD O nosso querido 9-copper (esse planeta maravilhoso que está ai embaixo >:3)</p>
+                
+                <img class="imagem-post" src="https://static.wikia.nocookie.net/murder-drones/images/e/e4/AbsoluteEnd35115.jpg/revision/latest?cb=20240824155213" alt="Imagem do Post">
+                
+                <p>No começo de tudo, Copper-9 era só mais um exoplaneta congelado e sem graça no meio do espaço, até que uma megacorporação bilionária da Terra chamada JCJenson (IN SPAAAAACE! >:D) olhou para ele e pensou: "Olha só quanta matéria-prima para a gente lucrar". Eles mandaram frotas e frotas de naves para colonizar o lugar e rechearam o planeta de Worker Drones, q eram aqueles robôs operários criados especificamente para fazer o trabalho pesado, minerar o núcleo do planeta e construir cidades industriais gigantescas enquanto os humanos só administravam e colhiam a grana (ou melhor, o povo aqui foi escravizado por esses idiotas ladrãos >:T).</p>
+                
+                <p>Só que os humanos foram gananciosos demais além de uns belos imbecis -_-. Eles cavaram e sugaram os recursos de Copper-9 com tanta falta de cuidado que acabaram desestabilizando o núcleo do planeta. O resultado? KABOOM!!! O núcleo simplesmente entrou em colapso e explodiu. Essa explosão não despedaçou o planeta inteiro, mas foi forte o suficiente para obliterar a atmosfera. Uma onda de choque congelante varreu a superfície instantaneamente, transformando qualquer forma de vida biológica — os humanos idiotas — em estátuas de gelo e poeira em questão de segundos. Até a lua do planeta acabou estilhaçada no processo, ficando com aquele visual quebrado bizarro no céu.</p>
+                
+                <p>Com os humanos fora da jogada, os Worker Drones q sobreviveram debaixo da terra saíram para a superfície e perceberam que estavam finalmente livres. Em vez de entrarem em pânico, eles decidiram aproveitar a oportunidade. Eles ganharam consciência própria, começaram a demonstrar sentimentos, adotaram nomes, roupas humanas que acharam no lixo, criaram famílias e começaram a erguer uma sociedade robótica própria no meio daquelas ruínas congeladas e cheias de cadáveres congelados. Para eles, o planeta finalmente era deles e a vida estava até que tranquila, tirando o frio absurdo de -100°C!!!! (censurou que saco >:C)</p>
 
-    <div class="header">
+                <p>O problema é que a JCJenson, lá na Terra, descobriu q os robôs tinham virado independentes e não gostou nada disso (pode nem ser mais livre tsk). Para os engravatados da empresa, robô com inteligência artificial livre é sinônimo de ameaça e prejuízo. Em vez de mandarem uma nave para conversar, eles resolveram radicalizar: criaram e enviaram os Disassembly Drones, conhecidos pela galera como os Murder Drones. Esses bicho são basicamente máquinas de matar implacáveis, com asas feitas de lâminas, armas mutáveis nas mãos, caudas cheias de ácido nanomecânico e um detalhe bem sádico: eles precisam beber o óleo quente dos Worker Drones para não superaquecerem e morrerem (um obs: hoje em dia apenas tem 2 Disassembly Drones na nossa escola que se aliaram com os Workers, então tá tranquilo :D)</p>
 
-        <div class="profile">
+                <p>Quando essas naves de desmontagem pousaram em Copper-9, o planeta virou um cenário de filme de terror. Os Murder Drones começaram a caçar os operários sem dó, usando os corpos das vítimas para construir uma torre bizarra de cadáveres mecânicos. Assustados e sem saber como revidar, a maioria dos Worker Drones fez o que parecia mais seguro: se esconderam atrás de bunkers gigantescos com portas hidráulicas triplas, liderados pelo Khan Doorman (MEU PAI UHUUUL >:D), aceitando que o lado de fora agora pertencia aos monstros (Mais um obs: um deles é meu namorado atualmente, mas ele é apenas um boiolinha timido mas eu amo ele [se ele estiver vendo isso, eu %$&¨%@&#¨&%@W*&%¨&$%/%$&¨ <<< censuraram dnv, mas que se dane >:/] mais que tudo.)</p>
 
-            <img
-            src="https://i.imgur.com/3ZQ3Z6M.png"
-            alt="Perfil">
+                <p>FIM! Eh, acho q falei tudo sobre o meu planeta né?? Eu espero que vcs gostem desse belo perfil (vai bombar mais que a Lizzy certeza >:) ), onde contarei minhas rotinas e momentos bons dos meus amigos (nem todos bleh :p), enfim Uz1 0ut!!!</p>
 
-            <div>
-                <h2>🌸 Meu Blog Kawaii</h2>
-                <p>@usuariofofinho</p>
+                <img class="imagem-post" src="https://i.pinimg.com/736x/37/62/47/3762470af5b4c7f8d96689bed0b3675e.jpg" alt="Imagem do Post Final">
+            </article>
+
+            <div class="botoes-interacao">
+                <button id="btn-curtir" onclick="curtirPost()">💚 CURTIR (<span id="contador-curtidas">155</span>)</button>
+                <button onclick="document.getElementById('campo-texto').focus()">💬 COMENTAR</button>
+            </div>
+
+            <div class="secao-comentarios">
+                <h3>TRANSMISSÕES RECEBIDAS (COMENTÁRIOS)</h3>
+                <div class="lista-comentarios" id="espaco-comentarios">
+                    <div class="comentario">
+                        <strong>@serial_designation_N:</strong> VC COM CERTEZA VAI SER FAMOSA !!!! 
+                    </div>
+                    <div class="comentario">
+                        <strong>@Noridoorman_:</strong> quem deixou minha filha entrar nisso?? >:(
+                    </div>
+                </div>
+
+                <div class="form-comentario">
+                    <input type="text" id="campo-nome" placeholder="Seu nome/@ do Twitter" required>
+                    <textarea id="campo-texto" rows="2" placeholder="Digite seu comentário..." required></textarea>
+                    <button onclick="adicionarComentario()">ENVIAR COMENTÁRIO ⮞</button>
+                </div>
             </div>
 
         </div>
-
-        <div class="kawaii-stars">
-            ⭐ 🎀 ⭐
-        </div>
-
-        <div class="top-buttons">
-
-            <button onclick="alternarFonte()">
-                👓 Acessibilidade
-            </button>
-
-            <button onclick="modoEscuro()">
-                🌙 Modo Escuro
-            </button>
-
-        </div>
-
     </div>
 
-    <div class="post">
+    <script>
+        // 1. Troca Dinâmica de Paletas de Cores (Roxo / Amarelo)
+        const btnMudarCor = document.getElementById('btn-mudar-cor');
+        btnMudarCor.addEventListener('click', () => {
+            const temaAtual = document.documentElement.getAttribute('data-theme');
+            if (temaAtual === 'yellow') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'yellow');
+            }
+        });
 
-        <h1>🍓 Meu Primeiro Post</h1>
+        // 2. Escalonador do Tamanho do Texto (Zoom)
+        function mudarZoom(porcentagem) {
+            document.documentElement.style.setProperty('--tamanho-fonte', porcentagem + '%');
+        }
 
-        <p>
-            Bem-vindo ao meu blog kawaii cheio de fofura,
-            brilho e muitas cores pastel!
-        </p>
+        // 3. Incrementador Numérico de Curtidas
+        let curtidas = 155;
+        let jaCurtido = false;
+        function curtirPost() {
+            if(!jaCurtido) {
+                curtidas++;
+                document.getElementById('contador-curtidas').innerText = curtidas;
+                document.getElementById('btn-curtir').style.color = 'var(--cor-hover)';
+                jaCurtido = true;
+            }
+        }
 
-        <img
-        src="https://images.unsplash.com/photo-1518621012420-8f3c0d6d4b4d?w=1200"
-        alt="Imagem">
+        // 4. Inserção Assíncrona de Comentários na Lista
+        function adicionarComentario() {
+            const nomeInput = document.getElementById('campo-nome');
+            const textoInput = document.getElementById('campo-texto');
 
-        <img
-        src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=1200"
-        alt="Gatinho">
+            if (nomeInput.value.trim() === '' || textoInput.value.trim() === '') {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
 
-        <img
-        src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1200"
-        alt="Flores">
-
-        <img
-        src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=1200"
-        alt="Kawaii">
-
-        <p>
-            Você pode curtir, comentar e republicar
-            este conteúdo usando os botões abaixo.
-        </p>
-
-        <div class="interactions">
-
-            <button onclick="toggle(this)">
-                ❤️ Curtir
-            </button>
-
-            <button onclick="toggle(this)">
-                💬 Comentar
-            </button>
-
-            <button onclick="toggle(this)">
-                🔄 Republicar
-            </button>
-
-        </div>
-
-        <div class="comments">
-
-            <textarea
-            id="comentario"
-            rows="4"
-            placeholder="Escreva um comentário fofo...">
-            </textarea>
-
-            <button
-            class="comment-btn"
-            onclick="adicionarComentario()">
-            Publicar Comentário
-            </button>
-
-            <div
-            class="comment-list"
-            id="listaComentarios">
-            </div>
-
-        </div>
-
-    </div>
-
-    <footer>
-        🎀 Feito com carinho • Blog Kawaii 🎀
-    </footer>
-
-</div>
-
-<script>
-
-function modoEscuro(){
-    document.body.classList.toggle("dark");
-}
-
-function alternarFonte(){
-    document.body.classList.toggle("grande");
-}
-
-function toggle(botao){
-    botao.classList.toggle("active");
-}
-
-function adicionarComentario(){
-
-    let texto =
-    document.getElementById("comentario").value;
-
-    if(texto.trim() === "") return;
-
-    let comentario =
-    document.createElement("div");
-
-    comentario.className = "comment";
-
-    comentario.innerHTML =
-    "💖 " + texto;
-
-    document
-    .getElementById("listaComentarios")
-    .appendChild(comentario);
-
-    document
-    .getElementById("comentario")
-    .value = "";
-}
-
-</script>
-
+            const container = document.getElementById('espaco-comentarios');
+            
+            const novoComentario = document.createElement('div');
+            novoComentario.className = 'comentario';
+            novoComentario.innerHTML = `<strong>${nomeInput.value}:</strong> ${textoInput.value}`;
+            
+            container.appendChild(novoComentario);
+            
+            nomeInput.value = '';
+            textoInput.value = '';
+            
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
 </body>
 </html>
