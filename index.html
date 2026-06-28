@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S Y S _ E R R O R // SOLVER_NET</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=VT323&display=swap" rel="stylesheet">
+
     <style>
         /* --- CONFIGURAÇÕES GERAIS --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', Courier, monospace;
         }
 
         body {
@@ -20,6 +24,9 @@
             background-attachment: fixed;
             background-size: cover;
             color: #bc13fe; /* Roxo Neon */
+            font-family: 'VT323', monospace; /* Fonte Pixel padrão para o corpo */
+            font-size: 1.4rem; /* Ajustado porque fonte pixel costuma ser menor */
+            letter-spacing: 1px;
             padding: 20px;
             overflow-x: hidden;
         }
@@ -47,9 +54,9 @@
 
         @keyframes glitch-text {
             0% { text-shadow: 2px 2px #ffe600, -2px -2px #bc13fe; }
-            20% { text-shadow: -2px 2px #ffe600, 2px -2px #bc13fe; }
-            40% { text-shadow: 2px -2px #ffe600, -2px 2px #bc13fe; }
-            60% { text-shadow: 1px 1px #bc13fe, -1px -1px #ffe600; }
+            20% { text-shadow: -3px 1px #ffe600, 2px -3px #bc13fe; }
+            40% { text-shadow: 2px -2px #ffe600, -1px 3px #bc13fe; }
+            60% { text-shadow: 1px 2px #bc13fe, -2px -1px #ffe600; }
             100% { text-shadow: 2px 2px #ffe600, -2px -2px #bc13fe; }
         }
 
@@ -78,8 +85,10 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 5px;
+            font-family: 'Orbitron', sans-serif; /* Fonte Cyber para o título */
+            font-weight: 900;
+            font-size: 2.8rem;
+            letter-spacing: 4px;
         }
 
         /* --- SIDEBAR: PERFIL E AMIGOS --- */
@@ -106,9 +115,14 @@
             background: #222;
         }
 
-        .profile-card h2 { color: #fff; margin-top: 10px; font-size: 1.2rem; }
-        .profile-card p.username { color: #ffe600; font-size: 0.9rem; margin-bottom: 10px; }
-        .profile-card p.bio { font-size: 0.85rem; color: #aaa; font-style: italic; }
+        .profile-card h2 { 
+            font-family: 'Orbitron', sans-serif; 
+            color: #fff; 
+            margin-top: 10px; 
+            font-size: 1.4rem; 
+        }
+        .profile-card p.username { color: #ffe600; font-size: 1.1rem; margin-bottom: 10px; }
+        .profile-card p.bio { font-size: 1.2rem; color: #aaa; font-style: italic; }
 
         .stats-box {
             display: grid;
@@ -117,22 +131,24 @@
             background: #000;
             border: 1px dashed #bc13fe;
             padding: 8px;
-            font-size: 0.8rem;
+            font-size: 1.1rem;
             margin-bottom: 20px;
         }
-        .stats-box span { color: #fff; font-weight: bold; display: block; }
+        .stats-box span { color: #fff; font-weight: bold; display: block; font-size: 1.3rem; }
 
         /* Lista de Amigos estilo Myspace */
         .friends-space {
             margin-top: 15px;
         }
         .friends-space h3 {
+            font-family: 'Orbitron', sans-serif;
             background: #bc13fe;
             color: #000;
-            font-size: 0.9rem;
+            font-size: 1rem;
             padding: 3px;
             margin-bottom: 10px;
             text-transform: uppercase;
+            text-align: center;
         }
         .friends-grid {
             display: grid;
@@ -141,7 +157,7 @@
         }
         .friend-item {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 1.1rem;
         }
         .friend-item img {
             width: 60px;
@@ -175,19 +191,21 @@
             border-bottom: 1px solid #bc13fe;
             padding-bottom: 10px;
             margin-bottom: 15px;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
         }
 
         .post-title {
+            font-family: 'Orbitron', sans-serif;
             color: #ffe600;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px #000;
         }
 
         /* Imagem do Blog */
         .post-image-wrapper {
             position: relative;
-            border: 1px solid #ffe600;
+            border: 2px solid #ffe600;
             margin: 15px 0;
             background: #111;
             min-height: 200px;
@@ -214,7 +232,7 @@
             padding: 3px 8px;
             background: #000;
             border: 1px solid #ffe600;
-            font-size: 0.7rem;
+            font-size: 1rem;
             font-weight: bold;
             text-transform: uppercase;
         }
@@ -232,13 +250,13 @@
         }
 
         .btn {
+            font-family: 'VT323', monospace;
             background: #000;
             color: #bc13fe;
             border: 1px solid #bc13fe;
-            padding: 8px 15px;
+            padding: 4px 15px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 1.3rem;
             text-transform: uppercase;
             transition: all 0.2s;
         }
@@ -262,9 +280,10 @@
             padding: 15px;
         }
         .comments-section h4 {
+            font-family: 'Orbitron', sans-serif;
             color: #ffe600;
             margin-bottom: 10px;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         .comment-form {
@@ -274,13 +293,14 @@
             margin-bottom: 15px;
         }
         .comment-input {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
             background: #000;
             border: 1px solid #bc13fe;
             color: #fff;
             padding: 10px;
             resize: none;
             height: 60px;
-            font-family: monospace;
         }
         .comment-input:focus {
             outline: none;
@@ -298,25 +318,27 @@
             background: rgba(255,255,255,0.02);
             border-left: 3px solid #bc13fe;
             padding: 8px;
-            font-size: 0.85rem;
+            font-size: 1.3rem;
         }
-        .comment-item strong { color: #ffe600; }
+        .comment-item strong { color: #ffe600; font-family: 'Orbitron', sans-serif; font-size: 1rem; }
 
         /* --- MENSAGEM DE FIM DO BLOG --- */
         footer {
             grid-column: 1 / -1;
+            font-family: 'Orbitron', sans-serif;
             text-align: center;
             background: #ffe600;
             color: #000;
             font-weight: bold;
-            padding: 10px;
+            padding: 12px;
             margin-top: 30px;
             border: 2px dashed #000;
             letter-spacing: 2px;
+            font-size: 1.1rem;
             animation: glitch-border 2s infinite alternate;
         }
 
-        /* Barra de rolagem customizada rústica */
+        /* Barra de rolagem customizada */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #bc13fe; border: 1px solid #ffe600; }
@@ -328,7 +350,7 @@
         
         <header>
             <h1 class="glitch-txt">SYS//:CALLBACK_PING</h1>
-            <p style="color: #ffe600; font-size: 0.8rem;">[SYSTEM_SERVER: ATTEMPTING TO RECONNECT...]</p>
+            <p style="color: #ffe600; font-size: 1.2rem; font-weight: bold;">[SYSTEM_SERVER: ATTEMPTING TO RECONNECT...]</p>
         </header>
 
         <aside>
@@ -405,7 +427,7 @@
                 </div>
 
                 <div class="comments-section">
-                    <h4>// Caixa de Mensagens Criptografadas:</h4>
+                    <h4>// CAIXA DE MENSAGENS CRIPTOGRAFADAS:</h4>
                     
                     <div class="comment-form">
                         <textarea class="comment-input" id="newComment" placeholder="Digite sua resposta no terminal..."></textarea>
@@ -431,7 +453,6 @@
     </div>
 
     <script>
-        // Função de Curtir
         function toggleLike(btn) {
             const countSpan = document.getElementById('like-count');
             let currentLikes = parseInt(countSpan.innerText);
@@ -445,7 +466,6 @@
             }
         }
 
-        // Função de Adicionar Comentário
         function addComment() {
             const input = document.getElementById('newComment');
             const commentText = input.value.trim();
@@ -456,16 +476,11 @@
             }
 
             const commentsList = document.getElementById('commentsList');
-            
-            // Cria um novo elemento de comentário
             const newCommentDiv = document.createElement('div');
             newCommentDiv.className = 'comment-item';
             newCommentDiv.innerHTML = `<strong>Anon_Drone:</strong> ${commentText}`;
             
-            // Adiciona no topo da lista
             commentsList.insertBefore(newCommentDiv, commentsList.firstChild);
-            
-            // Limpa o campo
             input.value = "";
         }
     </script>
