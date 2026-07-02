@@ -1,46 +1,65 @@
-// --- SISTEMA DE INTERAÇÃO DO TERMINAL (BLOG) ---
-
 /**
- * Alterna o estado do botão Curtir (Inverte entre roxo e amarelo)
- * e atualiza o contador numérico de curtidas.
+ * Sistema de Curtidas Individual por Post
+ * @param {HTMLElement} botao - O botão que disparou o evento de clique
  */
-function toggleLike(btn) {
-    const countSpan = document.getElementById('like-count');
-    let currentLikes = parseInt(countSpan.innerText);
+function curtirPost(botao) {
+    // Localiza a tag <span> dentro do botão que contém o número
+    const contadorSpan = botao.querySelector('span');
+    let curtidasAtuais = parseInt(contadorSpan.innerText);
     
-    if (btn.classList.contains('liked')) {
-        btn.classList.remove('liked');
-        countSpan.innerText = currentLikes - 1;
-    } else {
-        btn.classList.add('liked');
-        countSpan.innerText = currentLikes + 1;
-    }
+    // Soma +1 ao contador
+    curtidasAtuais++;
+    contadorSpan.innerText = curtidasAtuais;
+    
+    // Feedback visual rápido de clique (pisca em lilás)
+    botao.style.backgroundColor = '#b983ff';
+    setTimeout(() => { 
+        botao.style.backgroundColor = '#250938'; 
+    }, 150);
 }
 
 /**
- * Captura o texto inserido no terminal de comentários,
- * valida se não está em branco e o adiciona dinamicamente ao topo da lista.
+ * Alterna a visibilidade (Abrir/Fechar) da caixa de perfil
  */
-function addComment() {
-    const input = document.getElementById('newComment');
-    const commentText = input.value.trim();
-    
-    // Validação básica anti-spam de string vazia
-    if (commentText === "") {
-        alert("[ERROR_404]: O terminal não aceita transmissões sem dados!");
+function togglePerfil() {
+    const perfil = document.getElementById('caixa-perfil');
+    // Adiciona ou remove a classe 'hidden' configurada no CSS
+    perfil.classList.toggle('hidden');
+}
+
+/**
+ * Adiciona um comentário em tempo real na aba Guestbook
+ */
+function adicionarComentario() {
+    const userInput = document.getElementById('comentario-user');
+    const textoInput = document.getElementById('comentario-texto');
+    const lista = document.getElementById('lista-comentarios');
+
+    // Validação básica para não enviar campos vazios
+    if (userInput.value.trim() === "" || textoInput.value.trim() === "") {
+        alert("CRITICAL ERROR: Preencha o seu Username e o Comentário!");
         return;
     }
 
-    const commentsList = document.getElementById('commentsList');
+    // Cria os elementos HTML do novo comentário dinamicamente
+    const novoComentario = document.createElement('div');
+    novoComentario.className = 'comentario-item';
     
-    // Construção do elemento de estrutura do novo comentário
-    const newCommentDiv = document.createElement('div');
-    newCommentDiv.className = 'comment-item';
-    newCommentDiv.innerHTML = `<strong>Anon_Drone:</strong> ${commentText}`;
+    const userDiv = document.createElement('div');
+    userDiv.className = 'comentario-user';
+    userDiv.innerText = userInput.value;
     
-    // Insere o novo comentário no topo da caixa (estilo log de eventos)
-    commentsList.insertBefore(newCommentDiv, commentsList.firstChild);
-    
-    // Reseta o campo de texto
-    input.value = "";
+    const textoDiv = document.createElement('div');
+    textoDiv.innerText = textoInput.value;
+
+    // Monta o bloco do comentário
+    novoComentario.appendChild(userDiv);
+    novoComentario.appendChild(textoDiv);
+
+    // Insere o comentário no topo da lista (estilo feed mais recente)
+    lista.insertBefore(novoComentario, lista.firstChild);
+
+    // Limpa os campos do formulário para o próximo envio
+    userInput.value = "";
+    textoInput.value = "";
 }
