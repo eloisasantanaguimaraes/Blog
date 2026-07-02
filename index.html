@@ -1,488 +1,512 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S Y S _ E R R O R // SOLVER_NET</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=VT323&display=swap" rel="stylesheet">
-
+    <title>CYBERCORE // MURDER DRONES BLOG</title>
     <style>
-        /* --- CONFIGURAÇÕES GERAIS --- */
+        /* --- ESTILOS GERAIS & PALETA DE CORES (Anos 2000 / Neocities / Cybercore) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Press+Start+2P&display=swap');
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            cursor: url('https://cur.cursors-4u.net/games/gam-4/gam384.cur'), default !important; /* Cursor retrô opcional */
         }
 
         body {
-            background-color: #000;
-            /* COLOQUE O LINK DA SUA IMAGEM OU GIF DE FUNDO AQUI */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://i.postimg.cc/mD8g7m0d/matrix-glitch.gif');
-            background-attachment: fixed;
-            background-size: cover;
-            color: #bc13fe; /* Roxo Neon */
-            font-family: 'VT323', monospace; /* Fonte Pixel padrão para o corpo */
-            font-size: 1.4rem; /* Ajustado porque fonte pixel costuma ser menor */
-            letter-spacing: 1px;
+            background-color: #0d0214;
+            background-image: 
+                radial-gradient(rgba(141, 46, 219, 0.15) 15%, transparent 16%),
+                radial-gradient(rgba(141, 46, 219, 0.15) 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: #e0ccf8;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
             padding: 20px;
             overflow-x: hidden;
         }
 
-        /* Efeito de linhas de scan antigas (Anos 2000) */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 99999;
-            opacity: 0.6;
-            pointer-events: none;
-            background-size: 100% 4px, 6px 100%;
+        /* --- ANIMAÇÕES (Giro e Glitch) --- */
+        @keyframes girar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* --- ANIMAÇÕES DE GLITCH (ROXO E AMARELO) --- */
-        @keyframes glitch-border {
-            0% { border-color: #bc13fe; box-shadow: 0 0 10px #bc13fe; }
-            50% { border-color: #ffe600; box-shadow: 0 0 15px #ffe600; }
-            52% { border-color: #bc13fe; box-shadow: 0 0 10px #bc13fe; }
-            100% { border-color: #bc13fe; box-shadow: 0 0 10px #bc13fe; }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px #511281, -2px -2px #a873e8; }
+            20% { text-shadow: -2px 2px #511281, 2px -2px #a873e8; }
+            40% { text-shadow: 2px -2px #511281, -2px 2px #a873e8; }
+            60% { text-shadow: -2px -2px #511281, 2px 2px #a873e8; }
+            80% { text-shadow: 2px 2px #511281, -2px -2px #a873e8; }
+            100% { text-shadow: -2px 2px #511281, 2px -2px #a873e8; }
         }
 
-        @keyframes glitch-text {
-            0% { text-shadow: 2px 2px #ffe600, -2px -2px #bc13fe; }
-            20% { text-shadow: -3px 1px #ffe600, 2px -3px #bc13fe; }
-            40% { text-shadow: 2px -2px #ffe600, -1px 3px #bc13fe; }
-            60% { text-shadow: 1px 2px #bc13fe, -2px -1px #ffe600; }
-            100% { text-shadow: 2px 2px #ffe600, -2px -2px #bc13fe; }
-        }
-
-        .glitch-txt {
-            animation: glitch-text 1s infinite steps(2);
-            color: #fff;
-        }
-
-        /* --- LAYOUT PRINCIPAL (ESTILO RETRÔ) --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 20px;
-        }
-
-        /* Topo do Blog */
-        header {
-            grid-column: 1 / -1;
-            background: #0d0214;
-            border: 3px double #bc13fe;
-            padding: 15px;
-            text-align: center;
-            animation: glitch-border 4s infinite;
-        }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif; /* Fonte Cyber para o título */
-            font-weight: 900;
-            font-size: 2.8rem;
-            letter-spacing: 4px;
-        }
-
-        /* --- SIDEBAR: PERFIL E AMIGOS --- */
-        aside {
-            background: rgba(13, 2, 20, 0.9);
-            border: 2px solid #bc13fe;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(188, 19, 254, 0.3);
-        }
-
-        .profile-card {
-            text-align: center;
-            border-bottom: 2px dashed #ffe600;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border: 3px solid #ffe600;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #222;
-        }
-
-        .profile-card h2 { 
-            font-family: 'Orbitron', sans-serif; 
-            color: #fff; 
-            margin-top: 10px; 
-            font-size: 1.4rem; 
-        }
-        .profile-card p.username { color: #ffe600; font-size: 1.1rem; margin-bottom: 10px; }
-        .profile-card p.bio { font-size: 1.2rem; color: #aaa; font-style: italic; }
-
-        .stats-box {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            background: #000;
-            border: 1px dashed #bc13fe;
-            padding: 8px;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        .stats-box span { color: #fff; font-weight: bold; display: block; font-size: 1.3rem; }
-
-        /* Lista de Amigos estilo Myspace */
-        .friends-space {
-            margin-top: 15px;
-        }
-        .friends-space h3 {
-            font-family: 'Orbitron', sans-serif;
-            background: #bc13fe;
-            color: #000;
-            font-size: 1rem;
-            padding: 3px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-        .friends-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-        .friend-item {
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        .friend-item img {
-            width: 60px;
-            height: 60px;
-            border: 1px solid #bc13fe;
-            object-fit: cover;
-            background: #222;
-        }
-        .friend-item p {
-            color: #fff;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* --- CONTEÚDO PRINCIPAL (POSTS) --- */
-        main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .blog-post {
-            background: rgba(13, 2, 20, 0.9);
-            border: 2px solid #bc13fe;
-            padding: 20px;
-            position: relative;
-        }
-
-        .post-header {
-            border-bottom: 1px solid #bc13fe;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .post-title {
-            font-family: 'Orbitron', sans-serif;
-            color: #ffe600;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px #000;
-        }
-
-        /* Imagem do Blog */
-        .post-image-wrapper {
-            position: relative;
-            border: 2px solid #ffe600;
-            margin: 15px 0;
-            background: #111;
-            min-height: 200px;
+        /* --- HEADER / TÍTULO COM GLITCH --- */
+        .header-container {
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .post-image {
-            width: 100%;
-            max-height: 450px;
-            object-fit: contain;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 4px double #8d2edb;
         }
 
-        /* Adesivos / Web Badges Anos 2000 */
-        .stickers-container {
+        .titulo-principal {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: #ffffff;
+            text-align: center;
+            animation: glitch 1s infinite;
+            letter-spacing: -2px;
+        }
+
+        .imagem-giratoria {
+            width: 80px;
+            height: 80px;
+            animation: girar 8s linear infinite;
+            border-radius: 50%;
+            border: 2px solid #8d2edb;
+            object-fit: cover;
+        }
+
+        /* --- LAYOUT PRINCIPAL (3 COLUNAS) --- */
+        .layout-global {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- COLUNA ESQUERDA (Mascote e Aviso Pixel) --- */
+        .coluna-esquerda {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .balao-pixel {
+            background: #190528;
+            border: 3px solid #8d2edb;
+            padding: 15px;
+            border-radius: 8px;
+            position: relative;
+            font-size: 0.85rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        /* Setinha do balão */
+        .balao-pixel::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 15px 10px 0;
+            border-style: solid;
+            border-color: #8d2edb transparent;
+            display: block;
+            width: 0;
+        }
+
+        .personagem-img {
+            width: 100%;
+            max-width: 200px;
+            filter: drop-shadow(0px 0px 8px #8d2edb);
+        }
+
+        /* --- COLUNA CENTRAL (O BLOG) --- */
+        .coluna-central {
+            flex: 1;
+            max-width: 700px;
+            background: rgba(16, 4, 26, 0.85);
+            border: 3px solid #2e084d;
+            box-shadow: 8px 8px 0px #000;
+            padding: 25px;
+        }
+
+        /* Separador Listrado Roxo e Preto */
+        .separador-listrado {
+            height: 16px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #000,
+                #000 10px,
+                #621fa1 10px,
+                #621fa1 20px
+            );
+            border: 2px solid #8d2edb;
+            margin: 35px 0;
+        }
+
+        .post {
+            margin-bottom: 20px;
+        }
+
+        .post h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.1rem;
+            color: #b983ff;
+            margin-bottom: 15px;
+            border-left: 5px solid #8d2edb;
+            padding-left: 10px;
+        }
+
+        .post-conteudo {
+            background: #09020f;
+            border: 1px solid #3d1466;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .post-midia {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border: 2px solid #8d2edb;
+            margin-top: 15px;
+            background: #000;
+        }
+
+        /* Botões de Interação Internos do Post */
+        .post-interacoes {
+            margin-top: 15px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-            padding: 10px 0;
-            border-top: 1px dashed #333;
         }
-        .badge-sticker {
-            padding: 3px 8px;
-            background: #000;
-            border: 1px solid #ffe600;
-            font-size: 1rem;
+
+        .btn-curtir {
+            background: #250938;
+            border: 2px solid #8d2edb;
+            color: #fff;
+            padding: 5px 12px;
+            font-family: 'Courier Prime', monospace;
             font-weight: bold;
-            text-transform: uppercase;
-        }
-        .badge-sticker.purple { border-color: #bc13fe; color: #bc13fe; }
-        .badge-sticker.yellow { border-color: #ffe600; color: #ffe600; }
-        .badge-sticker.alert { background: #ffe600; color: #000; }
-
-        /* Botões Interativos */
-        .interaction-bar {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            border-top: 1px solid #bc13fe;
-            padding-top: 15px;
-        }
-
-        .btn {
-            font-family: 'VT323', monospace;
-            background: #000;
-            color: #bc13fe;
-            border: 1px solid #bc13fe;
-            padding: 4px 15px;
             cursor: pointer;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            transition: all 0.2s;
+            transition: 0.2s;
         }
-        .btn:hover {
-            background: #bc13fe;
+
+        .btn-curtir:hover {
+            background: #8d2edb;
             color: #000;
-            box-shadow: 0 0 10px #bc13fe;
-        }
-        .btn-like.liked {
-            background: #ffe600;
-            color: #000;
-            border-color: #ffe600;
-            box-shadow: 0 0 10px #ffe600;
+            box-shadow: 0 0 8px #8d2edb;
         }
 
         /* --- SESSÃO DE COMENTÁRIOS --- */
-        .comments-section {
-            margin-top: 20px;
-            background: #05000a;
-            border: 1px solid #333;
-            padding: 15px;
-        }
-        .comments-section h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: #ffe600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+        .secao-comentarios {
+            background: #09020f;
+            border: 2px dashed #8d2edb;
+            padding: 20px;
+            margin-top: 40px;
         }
 
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .comment-input {
-            font-family: 'VT323', monospace;
-            font-size: 1.3rem;
-            background: #000;
-            border: 1px solid #bc13fe;
+        .secao-comentarios h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
             color: #fff;
-            padding: 10px;
-            resize: none;
-            height: 60px;
-        }
-        .comment-input:focus {
-            outline: none;
-            border-color: #ffe600;
+            margin-top: 0;
         }
 
-        .comments-list {
+        .formulario-comentario input, .formulario-comentario textarea {
+            width: 100%;
+            background: #190528;
+            border: 1px solid #8d2edb;
+            color: #fff;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .formulario-comentario input:focus, .formulario-comentario textarea:focus {
+            outline: 2px solid #b983ff;
+        }
+
+        .lista-comentarios {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #3d1466;
+            padding-top: 15px;
+        }
+
+        .comentario-item {
+            background: #140520;
+            border-left: 3px solid #b983ff;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .comentario-user {
+            font-weight: bold;
+            color: #ff9cfc;
+            margin-bottom: 3px;
+        }
+
+        /* --- COLUNA DIREITA (Controles e Perfil Pop-up) --- */
+        .coluna-direita {
+            width: 250px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-height: 200px;
-            overflow-y: auto;
+            gap: 15px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
         }
-        .comment-item {
-            background: rgba(255,255,255,0.02);
-            border-left: 3px solid #bc13fe;
-            padding: 8px;
-            font-size: 1.3rem;
-        }
-        .comment-item strong { color: #ffe600; font-family: 'Orbitron', sans-serif; font-size: 1rem; }
 
-        /* --- MENSAGEM DE FIM DO BLOG --- */
-        footer {
-            grid-column: 1 / -1;
-            font-family: 'Orbitron', sans-serif;
+        .menu-navegacao {
+            background: #190528;
+            border: 2px solid #8d2edb;
+            padding: 15px;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .menu-navegacao h4 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.75rem;
+            color: #fff;
+            margin: 0 0 12px 0;
             text-align: center;
-            background: #ffe600;
-            color: #000;
-            font-weight: bold;
-            padding: 12px;
-            margin-top: 30px;
-            border: 2px dashed #000;
-            letter-spacing: 2px;
-            font-size: 1.1rem;
-            animation: glitch-border 2s infinite alternate;
         }
 
-        /* Barra de rolagem customizada */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #bc13fe; border: 1px solid #ffe600; }
+        .nav-btn {
+            display: block;
+            width: 100%;
+            background: #09020f;
+            border: 1px solid #8d2edb;
+            color: #e0ccf8;
+            padding: 8px;
+            margin-bottom: 8px;
+            text-align: left;
+            text-decoration: none;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #8d2edb;
+            color: #000;
+            padding-left: 15px;
+        }
+
+        /* Quadrado de Perfil Expansível/Ocultável */
+        .caixa-perfil {
+            background: #11021c;
+            border: 3px double #b983ff;
+            padding: 15px;
+            box-shadow: 4px 4px 0px #000;
+            display: block; /* Controlado via JS */
+        }
+
+        .caixa-perfil.hidden {
+            display: none;
+        }
+
+        .caixa-perfil h4 {
+            margin: 0 0 10px 0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #fff;
+            border-bottom: 1px solid #8d2edb;
+            padding-bottom: 5px;
+        }
+
+        /* --- RODAPÉ --- */
+        .rodape-blog {
+            margin-top: 50px;
+            text-align: center;
+            border-top: 4px double #8d2edb;
+            padding: 30px;
+            background: #06010a;
+        }
+
+        .rodape-img {
+            max-width: 150px;
+            border: 2px dashed #8d2edb;
+            margin-bottom: 15px;
+            background: #000;
+        }
+
+        .rodape-aviso {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #ff0055;
+            animation: glitch 1.5s infinite;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="header-container">
+        <img src="sua-foto-logo.png" alt="Logo Giratório" class="imagem-giratoria" onerror="this.src='file:///C:/Users/Micro/Downloads/transferir__2_-removebg-preview.png'">
+        <h1 class="titulo-principal">Doorman's blog</h1>
+    </div>
+
+    <div class="layout-global">
         
-        <header>
-            <h1 class="glitch-txt">SYS//:CALLBACK_PING</h1>
-            <p style="color: #ffe600; font-size: 1.2rem; font-weight: bold;">[SYSTEM_SERVER: ATTEMPTING TO RECONNECT...]</p>
-        </header>
-
-        <aside>
-            <div class="profile-card">
-                <img src="https://i.postimg.cc/9Fm87g3d/uzi-icon.jpg" alt="User Avatar" class="avatar">
-                <h2>Uzi_Solver_99</h2>
-                <p class="username">@absolute_angst</p>
-                <p class="bio">"Bite me! Apenas mais um drone com problemas existenciais e um programa apocalíptico rodando em segundo plano. 💜"</p>
+        <div class="coluna-esquerda">
+            <div class="balao-pixel">
+                atualização do Blog: 02/07/2026!
             </div>
+            <img src="seu-personagem.png" alt="Personagem" class="personagem-img" onerror="this.src= 'file:///C:/Users/Micro/Downloads/transferir%20(3)-Photoroom.png'">
+        </div>
 
-            <div class="stats-box">
-                <div><span>1,042</span>Posts</div>
-                <div><span>6.6K</span>Seguidores</div>
-                <div><span>321</span>Seguidos</div>
-            </div>
-
-            <div class="friends-space">
-                <h3>Top Friends Space</h3>
-                <div class="friends-grid">
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/mrhXb8G8/serial-designation-n.jpg" alt="N">
-                        <p>Serial_N</p>
-                    </div>
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/KYSf0fGv/serial-designation-v.jpg" alt="V">
-                        <p>Designation_V</p>
-                    </div>
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/0jXmYpYp/cyn.jpg" alt="Cyn">
-                        <p>CYN_001</p>
-                    </div>
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/pTfS86N7/doll.jpg" alt="Doll">
-                        <p>Doll_RU</p>
-                    </div>
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/fbgXfL34/thad.jpg" alt="Thad">
-                        <p>Thad_Cool</p>
-                    </div>
-                    <div class="friend-item">
-                        <img src="https://i.postimg.cc/Nj0XgS8y/j.jpg" alt="J">
-                        <p>Corporate_J</p>
+        <div class="coluna-central">
+            
+            <div class="post" id="post1">
+                <h2>&gt; entry_01: ACORDANDO EM COPPER-9</h2>
+                <div class="post-conteudo">
+                    <p>Fiz este espaço no Neocities para catalogar logs de erro e estéticas da velha terra. O ambiente lá fora está abaixo de zero, mas o processador está fritando.</p>
+                    <img class="post-midia" src="media1.gif" alt="Mídia do Post 1" onerror="this.src='https://placehold.co/600x300/10041a/8d2edb?text=[Insira+Foto+ou+GIF+aqui]'">
+                    <div class="post-interacoes">
+                        <button class="btn-curtir" onclick="curtirPost(this)">▲ CURTIR [<span>0</span>]</button>
                     </div>
                 </div>
             </div>
-        </aside>
 
-        <main>
-            <article class="blog-post">
-                <div class="post-header">
-                    <span>ENVIADO EM: 28 JUNHO 2026 // STATUS: INFECTADO</span>
-                </div>
-                
-                <h2 class="post-title">>_ ERROR: NULL_POINTER_DAMPENER</h2>
-                
-                <p>O Absolute Solver continua tentando reescrever os meus arquivos de log. Se alguém ler isso no Copper-9, não confie nas atualizações automáticas do sistema da JCJenson. Eles estão tentando limpar os registros de novo.</p>
+            <div class="separador-listrado"></div>
 
-                <div class="post-image-wrapper">
-                    <img src="https://i.postimg.cc/vH8vLgT5/cyn-wallpaper.jpg" alt="Murder Drones Glitch" class="post-image">
-                </div>
-
-                <p>Abaixo deixei alguns rastros criptográficos que recuperei dos servidores antigos do laboratório técnico do acampamento.</p>
-
-                <div class="stickers-container">
-                    <div class="badge-sticker alert">[ ! ] ABSOLUTE SOLVER DETECTED</div>
-                    <div class="badge-sticker purple">CYBERCORE.EXE</div>
-                    <div class="badge-sticker yellow">MURDER DRONES</div>
-                    <div class="badge-sticker purple">YEAR_2000_BUG</div>
-                    <div class="badge-sticker alert">S Y S _ O V E R R I D E</div>
-                </div>
-
-                <div class="interaction-bar">
-                    <button class="btn btn-like" onclick="toggleLike(this)">⚡ Curtir Blog (<span id="like-count">404</span>)</button>
-                </div>
-
-                <div class="comments-section">
-                    <h4>// CAIXA DE MENSAGENS CRIPTOGRAFADAS:</h4>
-                    
-                    <div class="comment-form">
-                        <textarea class="comment-input" id="newComment" placeholder="Digite sua resposta no terminal..."></textarea>
-                        <button class="btn" style="align-self: flex-end;" onclick="addComment()">Enviar Comentário</button>
-                    </div>
-
-                    <div class="comments-list" id="commentsList">
-                        <div class="comment-item">
-                            <strong>Serial_N:</strong> Uzi! Esse fundo amarelo está piscando muito rápido, está me dando vontade de tomar óleo quente de novo... Muito legal o blog!
-                        </div>
-                        <div class="comment-item">
-                            <strong>CYN_001:</strong> [Giggle] Que espaço bonitinho. Seria uma pena se alguém... colapsasse o planeta local.
-                        </div>
+            <div class="post" id="post2">
+                <h2>&gt; entry_02: ABSOLUTE_SOLVER.EXE</h2>
+                <div class="post-conteudo">
+                    <p>Novos códigos estranhos começaram a se manifestar na interface gráfica. Tons roxos por toda parte e arquivos corrompidos que parecem se auto-replicar.</p>
+                    <img class="post-midia" src="media2.jpg" alt="Mídia do Post 2" onerror="this.src='https://placehold.co/600x300/10041a/8d2edb?text=[Insira+Foto+ou+GIF+aqui]'">
+                    <div class="post-interacoes">
+                        <button class="btn-curtir" onclick="curtirPost(this)">▲ CURTIR [<span>0</span>]</button>
                     </div>
                 </div>
-            </article>
-        </main>
+            </div>
 
-        <footer>
-            ⚠️ [WARNING] VOCÊ CHEGOU AO FIM DO LOG DE SISTEMA. CONEXÃO INTERROMPIDA POR FALTA DE MEMÓRIA. COMANDO: SHUTDOWN // ⚠️
-        </footer>
+            <div class="separador-listrado"></div>
+
+            <div class="post" id="post3">
+                <h2>&gt; entry_03: PROTOCOLO FATAL ERRO</h2>
+                <div class="post-conteudo">
+                    <p>Se você chegou até aqui, o sistema já foi completamente infectado pela estética cybercore antiga. Deixe seu sinal no guestbook antes que o servidor caia.</p>
+                    <img class="post-midia" src="media3.gif" alt="Mídia do Post 3" onerror="this.src='https://placehold.co/600x300/10041a/8d2edb?text=[Insira+Foto+ou+GIF+aqui]'">
+                    <div class="post-interacoes">
+                        <button class="btn-curtir" onclick="curtirPost(this)">▲ CURTIR [<span>0</span>]</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secao-comentarios" id="comentarios-secao">
+                <h3>[ GUESTBOOK / COMENTÁRIOS ]</h3>
+                <div class="formulario-comentario">
+                    <input type="text" id="comentario-user" placeholder="Seu Username..." required>
+                    <textarea id="comentario-texto" rows="3" placeholder="Digite seu comentário sob risco de hacks..." required></textarea>
+                    <button class="btn-curtir" onclick="adicionarComentario()">ENVIAR LOG</button>
+                </div>
+
+                <div class="lista-comentarios" id="lista-comentarios">
+                    <div class="comentario-item">
+                        <div class="comentario-user">Anonymous#9703</div>
+                        <div>Heyy! Deixei uma msg no seu mural, dps adiciona meu banner no seu webring de horror thx!! &lt;3</div>
+                    </div>
+                    <div class="comentario-item">
+                        <div class="comentario-user">xX_MurderDrone_Xx</div>
+                        <div>Adorei a paleta roxa do blog, muito parecido com as telas de erro da Cyn.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="coluna-direita">
+            
+            <div class="menu-navegacao">
+                <h4>NAVEGAÇÃO</h4>
+                <a href="#post1" class="nav-btn">&gt; Ver Post 01</a>
+                <a href="#post2" class="nav-btn">&gt; Ver Post 02</a>
+                <a href="#post3" class="nav-btn">&gt; Ver Post 03</a>
+                <a href="#comentarios-secao" class="nav-btn">&gt; Comentários</a>
+                <button class="nav-btn" onclick="togglePerfil()">&gt; [Abrir/Fechar] Perfil</button>
+                <a href="#fim-do-blog" class="nav-btn">&gt; Ir para o Final</a>
+            </div>
+
+            <div class="caixa-perfil" id="caixa-perfil">
+                <h4>ADMIN_INFO</h4>
+                <p><strong>User:</strong> Serial Designation _</p>
+                <p><strong>Status:</strong> Crítico / Buscando Óleo</p>
+                <p><strong>Interesses:</strong> Webrings antigos, HTML puro, asas de metal e glitches purpuras dos anos 2000.</p>
+            </div>
+
+        </div>
 
     </div>
 
+    <div class="rodape-blog" id="fim-do-blog">
+        <img src="fim.png" alt="Fim do Blog" class="rodape-img" onerror="this.src='https://placehold.co/150x80/250938/8d2edb?text=BYE+BYE'"><br>
+        <span class="rodape-aviso">FATAL ERROR: O BLOG CHEGOU AO FIM. DISCONNECTING...</span>
+        <p style="font-size: 0.7rem; color: #511281; margin-top: 15px;">© 2023-2026 Forever - Feito no estilo Web 1.0</p>
+    </div>
+
     <script>
-        function toggleLike(btn) {
-            const countSpan = document.getElementById('like-count');
-            let currentLikes = parseInt(countSpan.innerText);
+        // Função para curtir os posts de forma independente
+        function curtirPost(botao) {
+            const contadorSpan = botao.querySelector('span');
+            let curtidasAtuais = parseInt(contadorSpan.innerText);
+            curtidasAtuais++;
+            contadorSpan.innerText = curtidasAtuais;
             
-            if (btn.classList.contains('liked')) {
-                btn.classList.remove('liked');
-                countSpan.innerText = currentLikes - 1;
-            } else {
-                btn.classList.add('liked');
-                countSpan.innerText = currentLikes + 1;
-            }
+            // Efeito visual rápido de clique retrô
+            botao.style.backgroundColor = '#b983ff';
+            setTimeout(() => { botao.style.backgroundColor = '#250938'; }, 150);
         }
 
-        function addComment() {
-            const input = document.getElementById('newComment');
-            const commentText = input.value.trim();
-            
-            if (commentText === "") {
-                alert("O terminal não aceita mensagens vazias!");
+        // Função para Abrir/Fechar a caixa de perfil (Toggle)
+        function togglePerfil() {
+            const perfil = document.getElementById('caixa-perfil');
+            perfil.classList.toggle('hidden');
+        }
+
+        // Função para Adicionar comentários dinamicamente
+        function adicionarComentario() {
+            const userInput = document.getElementById('comentario-user');
+            const textoInput = document.getElementById('comentario-texto');
+            const lista = document.getElementById('lista-comentarios');
+
+            if(userInput.value.trim() === "" || textoInput.value.trim() === "") {
+                alert("Preencha o usuário e o comentário para atualizar a database!");
                 return;
             }
 
-            const commentsList = document.getElementById('commentsList');
-            const newCommentDiv = document.createElement('div');
-            newCommentDiv.className = 'comment-item';
-            newCommentDiv.innerHTML = `<strong>Anon_Drone:</strong> ${commentText}`;
+            // Cria a estrutura do novo comentário
+            const novoComentario = document.createElement('div');
+            novoComentario.className = 'comentario-item';
             
-            commentsList.insertBefore(newCommentDiv, commentsList.firstChild);
-            input.value = "";
+            const userDiv = document.createElement('div');
+            userDiv.className = 'comentario-user';
+            userDiv.innerText = userInput.value;
+            
+            const textoDiv = document.createElement('div');
+            textoDiv.innerText = textoInput.value;
+
+            novoComentario.appendChild(userDiv);
+            novoComentario.appendChild(textoDiv);
+
+            // Adiciona no topo da lista de comentários
+            lista.insertBefore(novoComentario, lista.firstChild);
+
+            // Limpa os campos após o envio
+            userInput.value = "";
+            textoInput.value = "";
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
